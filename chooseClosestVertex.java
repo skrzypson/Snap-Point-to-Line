@@ -1,4 +1,3 @@
-
 public class chooseClosestVertex {
 	
 	public static int choose(int a, int[][] A, int p){
