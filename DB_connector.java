@@ -24,12 +24,11 @@ public class DB_connector implements Runnable{
 		Statement stmt = null;
 		String sql;
 		
-		
 		try{
-		//STEP 2: Register JDBC driver
+		// Register JDBC driver
 		Class.forName("com.mysql.jdbc.Driver");
 		
-		//STEP 3: Open a connection
+		// Open a connection
 		System.out.println("Connecting to a selected database...");
 		conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		System.out.println("Connected database successfully...");
@@ -49,10 +48,8 @@ public class DB_connector implements Runnable{
 			else{
 				System.out.println("sleeping...");
 				Thread.sleep(500);
-				
 			}
 		}
-		
 	}
 		
 	catch(SQLException se){
@@ -60,28 +57,27 @@ public class DB_connector implements Runnable{
 			se.printStackTrace();
 			}
 	catch(Exception e){
-				//Handle errors for Class.forName
-				e.printStackTrace();
-				}
+			//Handle errors for Class.forName
+			e.printStackTrace();
+			}
 	finally{
 		try{
-	         if(stmt!=null)
-	            conn.close();
-	      }catch(SQLException se){
+			if(stmt!=null)
+	            	conn.close();
+		}
+		catch(SQLException se){
 	    	  
 	      }// do nothing
 		//finally block used to close resources
 		try{
 			if(conn!=null)
-				conn.close();
-			}
+			conn.close();
+		}
 		catch(SQLException se){
-				se.printStackTrace();
-				}//end finally try
+			se.printStackTrace();
+			}//end finally try
 		}//end try
-	
-	
-	
 	System.out.println("Goodbye!");
+		
 	}//end main
 }//end DB_getter
