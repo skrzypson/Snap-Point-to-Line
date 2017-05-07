@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -47,9 +46,10 @@ public class Tester_board extends JPanel implements MouseListener{
 	private int QV_x;
 	private int QV_y;
 	
+	// polyline coords
 	public int[][] v_x = {{40, 106}, {106, 230}, {230, 358}, {358, 390}, {390, 450}};
-    public int[][] v_y = {{60, 153}, {153, 283}, {283, 350}, {350, 312}, {312, 250}};
-    int v = v_x.length;    
+    	public int[][] v_y = {{60, 153}, {153, 283}, {283, 350}, {350, 312}, {312, 250}};
+    	int v = v_x.length;    
     
     public static double round_no(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
