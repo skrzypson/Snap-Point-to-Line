@@ -1,9 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.List;
 import java.awt.Point;
-import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.event.*;
 import java.util.Collection;
@@ -130,7 +128,7 @@ public class Tester_board extends JPanel implements MouseListener{
 			displayPoint(g, QV_x, QV_y, Color.RED);
 			System.out.println("editing, QV_x and QV_y: " + QV_x + ", " + QV_y);
 		}
-		// calculateDistanceOnRoute(g);
+		//calculateDistanceOnRoute(g); <----- 
 		
 	}
 	
@@ -245,8 +243,12 @@ public class Tester_board extends JPanel implements MouseListener{
             			}
             		}
     			}
-    		else {break;}
+    		
+    		else {
+    			break;
+    			}
     		}
+    	
     	System.out.println("p2_x and p2_y: " + p2_x + " ," + p2_y);
     		
     	if (point_is_out_of_bounds == false && we_have_snap == true){
@@ -263,17 +265,19 @@ public class Tester_board extends JPanel implements MouseListener{
     		for (int i = 0; i < pp_min_index; i++){
     			if (pp_min_index == 0){
     				break;
-    			}
+    				}
+    			
     			single_l_dist = Math.sqrt(Math.abs((v_y[i][1] - v_y[i][0])*(v_y[i][1] - v_y[i][0]))
     					+Math.abs((v_x[i][1] - v_x[i][0])*(v_x[i][1] - v_x[i][0])));
     			sum_l_dist = sum_l_dist + single_l_dist;
     			System.out.println("Distance of line i " + i + ": " + single_l_dist);
-    			
     		}
+    		
     		System.out.println("Green - Distance traveled: " + sum_l_dist);
     		g.drawString("Green - Distance traveled: " + sum_l_dist, 10, 10);
         	sum_l_dist = 0;
     	}
+    	
     	else if (p1_min < 100 && point_is_out_of_bounds == false){
     		displayPoint(g, p2_x, p2_y, Color.BLUE);
     		g.drawLine(q1, q2, p2_x, p2_y);
@@ -283,6 +287,7 @@ public class Tester_board extends JPanel implements MouseListener{
     			sum_l_dist = sum_l_dist + single_l_dist;
     			System.out.println("Distance of line i " + ": " + single_l_dist);
     		}
+    		
     		else {
     			single_l_dist = Math.sqrt(Math.abs((p2_y - v_y[p1_min_index][0])*(p2_y - v_y[p1_min_index][0]))
     					+Math.abs((p2_x - v_x[p1_min_index][0])*(p2_x - v_x[p1_min_index][0])));
@@ -304,7 +309,6 @@ public class Tester_board extends JPanel implements MouseListener{
     	}
     	    	
     	System.out.println(p1_min + "; " + pp_min);
-    	
     	p1_dists.clear();
     	indexes.clear();
     	v_dists.clear();
@@ -312,58 +316,6 @@ public class Tester_board extends JPanel implements MouseListener{
     	
     }
     
-    private void calculateDistanceOnRoute(Graphics g){
-    	if (pp_min < 100 && point_is_out_of_bounds == true){
-    		for (int i = 0; i < pp_min_index - 1; i++){
-    			if (i == 0){
-    				double single_l_dist = Math.sqrt(Math.abs((v_y[i+1][0] - v_y[i][0])*(v_y[i+1][0] - v_y[i][0]))
-    					+Math.abs((v_x[i+1][0] - v_x[i][0])*(v_x[i+1][0] - v_x[i][0])));
-    			sum_l_dist = sum_l_dist + single_l_dist;
-    			System.out.println("Distance of line " + i + ": " + single_l_dist);
-    			}
-    			else{
-    				double single_l_dist = Math.sqrt(Math.abs((v_y[i][1] - v_y[i-1][1])*(v_y[i][1] - v_y[i-1][1]))
-    						+Math.abs((v_x[i][1] - v_x[i-1][1])*(v_x[i][1] - v_x[i-1][1])));
-    				System.out.println("Distance of line " + 1 + ": " + single_l_dist);
-    				if (i == pp_min_index - 2){
-    					single_l_dist = Math.sqrt(Math.abs((v_y[i+1][1] - v_y[i][1])*(v_y[i+1][1] - v_y[i][1]))
-    							+Math.abs((v_x[i+1][1] - v_x[i][1])*(v_x[i+1][1] - v_x[i][1])));
-    					sum_l_dist = sum_l_dist + single_l_dist;
-    					System.out.println("Distance of line " + 1 + ": " + single_l_dist);
-    					break;
-    					}
-    			}
-    			
-    		}
-    		System.out.println("Distance traveled: " + sum_l_dist);
-    	}
-    	if (p1_min < 100 && point_is_out_of_bounds == false){
-    		for (int i = 0; i < p1_min_index - 2; i++){
-    			if (i == 0){
-    				double single_l_dist = Math.sqrt(Math.abs((v_y[i+1][0] - v_y[i][0])*(v_y[i+1][0] - v_y[i][0]))
-    					+Math.abs((v_x[i+1][0] - v_x[i][0])*(v_x[i+1][0] - v_x[i][0])));
-    			sum_l_dist = sum_l_dist + single_l_dist;
-    			System.out.println("Distance of line " + i + ": " + single_l_dist);
-    			}
-    			else{
-    				double single_l_dist = Math.sqrt(Math.abs((v_y[i][1] - v_y[i-1][1])*(v_y[i][1] - v_y[i-1][1]))
-    						+Math.abs((v_x[i][1] - v_x[i-1][1])*(v_x[i][1] - v_x[i-1][1])));
-    				System.out.println("Distance of line " + i + ": " + single_l_dist);
-    				if (i == p1_min_index - 2){
-    					single_l_dist = Math.sqrt(Math.abs((v_y[i+1][1] - v_y[i][1])*(v_y[i+1][1] - v_y[i][1]))
-    							+Math.abs((v_x[i+1][1] - v_x[i][1])*(v_x[i+1][1] - v_x[i][1])));
-    					sum_l_dist = sum_l_dist + single_l_dist;
-    					System.out.println("Distance of line " + i + ": " + single_l_dist);
-    					break;
-    					}
-    			}
-        	}
-    		System.out.println("Distance traveled: " + sum_l_dist);
-    	}
-    	g.drawString("Distance traveled: " + sum_l_dist, 10, 10);
-    	sum_l_dist = 0;
-    }
-    	
     private void displayPoint(Graphics g, int x, int y, Color col){
     	
     	int xPoints[] = {(int) Math.round(x + 1), (int) Math.round(x - 1), 
@@ -379,7 +331,6 @@ public class Tester_board extends JPanel implements MouseListener{
         g.setColor(col);
         g.drawPolygon(xPoints, yPoints, nPoints);
         //g.drawString(Integer.toString(x) + " , " + Integer.toString(y), x + 5, y + 2);
-        
 	}
     
 	private void displayMLines(Graphics g, int v, int[][] v_x, int[][] v_y){
@@ -392,36 +343,30 @@ public class Tester_board extends JPanel implements MouseListener{
 		for (int i = 0; i < v; i++){
 			g.drawLine(v_x[i][0], v_y[i][0], v_x[i][1], v_y[i][1]);
 		}
-	
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	class EventMouseMotionListener extends MouseMotionAdapter{
@@ -458,5 +403,4 @@ public class Tester_board extends JPanel implements MouseListener{
 			dragging = false;
 		}
 	}
-
 }
